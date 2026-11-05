@@ -16,9 +16,19 @@ def add_book():
         }
         print(f'Added "{title}".')
 
+def list_books():
+    if not books:
+        print("No books in the library.")
+        return
+
+    for title, details in books.items():
+        status = "Available" if details["available"] else "Borrowed"
+        print(f'{title} by {details["author"]} - {status}')
+
 def show_menu():
     print("\n=== Library Tracker ===")
     print("1. Add book")
+    print("2. List books")
     print("0. Exit")
 
 
@@ -32,6 +42,8 @@ def main():
             break
         elif choice == "1":
             add_book()
+        elif choice == "2":
+            list_books()
         else:
             print("Invalid option.")
 
