@@ -24,11 +24,33 @@ def list_books():
         status = "Available" if details["available"] else "Borrowed"
         print(f'{title} by {details["author"]} - {status}')
 
-def show_menu():
-    print("\n=== Library Tracker ===")
-    print("1. Add book")
-    print("2. List books")
-    print("0. Exit")
+def return_book():
+    title = input("Title: ")
+
+    if title not in books:
+        print(f'No book titled "{title}".')
+    elif books[title]["available"]:
+        print(f'"{title}" is not borrowed.')
+    else:
+        books[title]["available"] = True
+        print(f'You returned "{title}".')
+
+def borrow_book():
+    title = input("Title: ")
+
+    if title not in books:
+        print(f'No book titled "{title}".')
+    elif not books[title]["available"]:
+        print(f'"{title}" is already borrowed.')
+    else:
+        books[title]["available"] = False
+        print(f'You borrowed "{title}".')
+
+print("1. Add book")
+print("2. List books")
+print("3. Borrow book")
+print("4. Return book")
+print("0. Exit")
 
 
 def main():
@@ -43,6 +65,11 @@ def main():
             add_book()
         elif choice == "2":
             list_books()
+
+        elif choice == "3":
+            borrow_book()
+        elif choice == "4":
+            return_book()
         else:
             print("Invalid option.")
 
